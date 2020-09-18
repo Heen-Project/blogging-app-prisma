@@ -1,4 +1,4 @@
-import '@babel/polyfill'
+import '@babel/polyfill/noConflict'
 import { ApolloServer, PubSub } from 'apollo-server'
 import { resolvers, fragmentReplacements } from './resolvers/index'
 import typeDefs from './schema/schema'
