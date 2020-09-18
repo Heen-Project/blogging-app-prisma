@@ -17,6 +17,7 @@ const server = new ApolloServer({
         }
     },
     fragmentReplacements,
+    introspection: true,
     playground: true,
  })
 
