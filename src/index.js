@@ -16,7 +16,8 @@ const server = new ApolloServer({
             request
         }
     },
-    fragmentReplacements
+    fragmentReplacements,
+    playground: true,
  })
 
 server.listen(process.env.PORT || 4000).then(({ url }) => {
