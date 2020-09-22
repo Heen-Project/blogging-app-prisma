@@ -57,9 +57,22 @@ const deleteComment = gql`
         deleteComment ( id: $id ){ id }
     }
 `
+const subscribeToComments = gql`
+    subscription ($postId : ID!) {
+        comment(postId: $postId){
+            mutation
+            node { id text }
+        }
+    }
+`
+const subscribeToPosts = gql`
+    subscription {
+        post { mutation }
+    }
+`
 
 export { 
     createUser, getUsers, login, getProfile, 
-    getPosts, myPosts, updatePost, createPost, deletePost,
-    deleteComment
+    getPosts, myPosts, updatePost, createPost, deletePost, subscribeToPosts, 
+    deleteComment, subscribeToComments
 }

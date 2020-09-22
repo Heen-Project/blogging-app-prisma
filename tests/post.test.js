@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill'
 import prisma from '../src/prisma'
 import seedDatabase, { userOne, postOne, postTwo } from './utils/seedDatabase'
 import getClient from './utils/getClient'
-import { getPosts, myPosts, updatePost, createPost, deletePost } from './utils/operations'
+import { getPosts, myPosts, updatePost, createPost, deletePost, subscribeToPosts } from './utils/operations'
 
 const client = getClient()
 
@@ -59,3 +59,21 @@ test('Check delete post', async () => {
     const exists = await prisma.exists.Post({ id: postTwo.post.id })
     expect(exists).toBe(false)
 })
+
+test('Check subscribe to published post', async (done) => {
+    client.subscribe({ query: subscribeToPosts }).subscribe({
+        next(response){
+            expect(response.data.post.mutation).toBe('DELETED')
+            done()
+        }
+    })
+
+    await prisma.mutation.deletePost({ where: { id: postOne.post.id } })
+})
+
+// Check should not be able to update another users post
+// Check should not be able to delete another users post
+// Check should require authentication to create a post (could add for update and delete too)
+// Check should fetch published post by id 
+// Check should fetch own post by id
+// Check should not fetch draft post from other user

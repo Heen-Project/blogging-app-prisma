@@ -57,3 +57,8 @@ test('Check fetch user profile', async () => {
     expect(data.me.name).toBe(userOne.user.name)
     expect(data.me.email).toBe(userOne.user.email)
 })
+
+// Check should not signup a user with email that is already in use
+// Check should login and provide authentication token
+// Check should reject me query without authentication
+// Check should hide emails when fetching list of users
